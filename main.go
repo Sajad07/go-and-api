@@ -32,7 +32,7 @@ type UserStore struct {
 func (u *UserStore) postOrGet(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		u.getAllUsers(w, r)
+		u.getOneUser(w, r)
 		return
 	case "POST":
 		u.createOneUser(w, r)
@@ -59,7 +59,7 @@ func (u *UserStore) getAllUsers(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
 	}
-	w.Header().Add("content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonByte)
 }
@@ -73,10 +73,10 @@ func (u *UserStore) createOneUser(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte(err.Error()))
 		return
 	}
-	ct := r.Header.Get("content-type")
+	ct := r.Header.Get("Content-Type")
 	if ct != "application/json" {
 		w.WriteHeader(http.StatusUnsupportedMediaType)
-		w.Write([]byte(fmt.Sprintf("need content-type 'application/json',but got %v", ct)))
+		w.Write([]byte(fmt.Sprintf("need Content-Type 'application/json',but got %v", ct)))
 		return
 	}
 	var user User
@@ -143,7 +143,7 @@ func (u *UserStore) getOneUser(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusInternalServerError)
 		w.Write([]byte(err.Error()))
 	}
-	w.Header().Add("content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonByte)
 }
@@ -183,6 +183,7 @@ func (a *Admin) adminHandle(w http.ResponseWriter, r *http.Request) {
 
 //main func for handler all function
 func main() {
+	fmt.Println("Application is runing ... ")
 	admin := newAdmin()
 	user := newUser()
 	http.HandleFunc("/users", user.getAllUsers)
