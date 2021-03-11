@@ -18,7 +18,7 @@
 
 ### Data Types
 
-- `content-type` **:** `application/json`
+- `Content-Type` **:** `application/json`
 
 ```
 {
