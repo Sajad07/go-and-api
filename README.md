@@ -18,14 +18,14 @@
 
 ### Data Types
 
-- `Content-Type` **:** `application/json`
+> **Content-Type:** application/json
 
-```
+```json
 {
-"id":"some id",
-"name":"name of user",
-"family":"family of user",
-"email":"email of user",
-"age":20,
+  "id": "someid",
+  "name": "name of the coaster",
+  "inPark": "the amusement park the ride is in",
+  "manufacturer": "name of the manufacturer",
+  "height": 27,
 }
 ```
