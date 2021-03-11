@@ -16,7 +16,7 @@
 - `GET /admin` چک کردن که آیا کاربر درست درخواست داده است
 - `GET /users/random` یک کاربر را به صورت شانسی انتخاب کرده و به مسیری که اطلاعات آن است برود
 
-# Data Types
+### Data Types
 
 - `content-type` **:** `application/json`
 
