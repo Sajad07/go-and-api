@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-//User data type
+// User data type
 type User struct {
 	ID     string `json:"id"`
 	Name   string `json:"name"`
@@ -22,13 +22,13 @@ type User struct {
 	Age    int    `json:"age"`
 }
 
-//UserStore for store a data
+// UserStore for store a data
 type UserStore struct {
 	sync.Mutex
 	store map[string]User
 }
 
-//methode for management POST and GET request for create a user and read all user
+// Methode for management POST and GET request for create a user and read all user
 func (u *UserStore) postOrGet(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
@@ -44,7 +44,7 @@ func (u *UserStore) postOrGet(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//this func for read all users
+// This func for read all users
 func (u *UserStore) getAllUsers(w http.ResponseWriter, r *http.Request) {
 	users := make([]User, len(u.store))
 	u.Lock()
@@ -64,7 +64,7 @@ func (u *UserStore) getAllUsers(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonByte)
 }
 
-//this func for create a user
+// This func for create a user
 func (u *UserStore) createOneUser(w http.ResponseWriter, r *http.Request) {
 	jsonByte, err := ioutil.ReadAll(r.Body)
 	defer r.Body.Close()
@@ -96,7 +96,7 @@ func (u *UserStore) createOneUser(w http.ResponseWriter, r *http.Request) {
 
 }
 
-//this func for selecte random user form users
+// This func for selecte random user form users
 func (u *UserStore) getRandomUser(w http.ResponseWriter, r *http.Request) {
 	ids := make([]string, len(u.store))
 	u.Lock()
@@ -120,7 +120,7 @@ func (u *UserStore) getRandomUser(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusFound)
 }
 
-//this func for read a user
+// This func for read a user
 func (u *UserStore) getOneUser(w http.ResponseWriter, r *http.Request) {
 	parts := strings.Split(r.URL.String(), "/")
 	if len(parts) != 3 {
@@ -148,19 +148,19 @@ func (u *UserStore) getOneUser(w http.ResponseWriter, r *http.Request) {
 	w.Write(jsonByte)
 }
 
-//this func for creat a empty data store
+// This func for creat a empty data store
 func newUser() *UserStore {
 	return &UserStore{
 		store: map[string]User{},
 	}
 }
 
-//Admin a struct for admin
+// Admin a struct for admin
 type Admin struct {
 	password string
 }
 
-//this func for create a admin
+// This func for create a admin
 func newAdmin() *Admin {
 	os.Setenv("ADMIN_PASSWORD", "abc123")
 	password := os.Getenv("ADMIN_PASSWORD")
@@ -170,7 +170,7 @@ func newAdmin() *Admin {
 	return &Admin{password: password}
 }
 
-//this func for handle admin request
+// This func for handle admin request
 func (a *Admin) adminHandle(w http.ResponseWriter, r *http.Request) {
 	user, pass, ok := r.BasicAuth()
 	if !ok || user != "admin" || pass != a.password {
@@ -181,7 +181,7 @@ func (a *Admin) adminHandle(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("<html><h1>Super Secret Admin Portal</h1></html>"))
 }
 
-//main func for handler all function
+// Main func for handler all function
 func main() {
 	fmt.Println("Application is runing ... ")
 	admin := newAdmin()

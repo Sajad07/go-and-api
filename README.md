@@ -20,12 +20,25 @@
 
 > **Content-Type:** application/json
 
+```go
+// User data type
+type User struct {
+	ID     string `json:"id"`
+	Name   string `json:"name"`
+	Family string `json:"family"`
+	Email  string `json:"email"`
+	Age    int    `json:"age"`
+}
+```
+
+And **JSON** output:
+
 ```json
 {
-  "id": "someid",
-  "name": "name of the coaster",
-  "inPark": "the amusement park the ride is in",
-  "manufacturer": "name of the manufacturer",
-  "height": 27,
+  "id": "10000",
+  "name": "Sajad",
+  "family": "Fahimian",
+  "email": "test@github.com",
+  "age": 27,
 }
 ```
